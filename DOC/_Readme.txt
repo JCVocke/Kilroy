@@ -1,0 +1,64 @@
+To Whom'st'd've'lv'yaint'nt'ed'ies'y'es Concerns;
+
+################ INSTALL:
+		
+Just place the Kilroy.exe file into your Stellaris Documents Directory.  IE; C:\Users\<YOURUSERNAMEHERE>\Documents\Paradox Interactive\Stellaris
+
+The File should be alongside these three core files;
+
+* mods_registry.json : This file stores all of your installed Mod Definitions.  The App reads from this file but SHOULD NOT WRITE TO IT.
+* game_data.json : This file stores your Mod Load Order.  The Application will both Read and Write from and to this file.
+* dlc_load.json : This file stores which Mods are actually Activated as well as De-Activated DLC.  The Application will both Read and Write from and to this file.
+		
+################ USAGE:
+
+Run the Application.  It should Auto-Populate the list of Installed and currently Enabled Mods into the Right and Left Lists Respectively.  If it does not, then I would open the Paradox Launcher, go to Manage Mods, and then immediately hit "Done" and this should re-write the files in question.  If you encounter further problems feel free to yell at me in Reddit PMs. (JCVocke)
+		
+(Consult the accompanying Image [_Readme.png](https://www.dropbox.com/s/gu3io3tf1usih6t/_Readme.png?dl=0) to see what each number section below refers to)
+	
+	1: This Lists your currently ACTIVE Mods	
+	2: Lists ALL DOWNLOADED MODS
+		* Each Entry lists information in the following order;
+			A -: The "X" at the very left of the entry denotes that the mod is Activated
+			B -: The Index of the Mod in the List in question.  THESE LISTS USE A BASE 0 INDEX BECAUSE PROGRAMMING.
+			C -: The Mod File.  This is the file that appears in the Stellaris\mod folder.  Note that in the case of Steam Mods, the Numbers in this Mod File correspond to the ID of the Mod, and also the folder the Mod's actual zip archive is stored in under "SteamApps\workshop\content\281990".  Feel free to use this to help find specific mod files so that you can tear them open and cannibalize them for code.
+			D -: The Version Number of the game that the Mod Supports.  Not all mods will have this because reasons.  Literally for some mods the version number just doesn't appear in the mods_registry.json file.  My Local Mods don't have this even though my .mod files appears to have the correct entries.  There's also the problem that they just arbitrarily changed the format of the .mod file even though it doesn't actually store any additional data in its new form.  If there's one thing that's consistent with Paradox it is that they are Not Consistent.
+			E -: The Mod's Name, as it will appear in The Launcher.
+		
+	3: Re-Loads your existing Mod Order.  The Application Auto-Executes this process on starting, but this will let you restart if you mess something up.  You shouldn't need to do that because this Manager cannot delete Mod Data, only re-organize it and choose which mods are active, but I had space for another button so whatevs.  Will completely overwrite all current data in the application.  it is functionally identical to closing the app and re-launching it.
+	
+	4: Saves your currently defined Mod Order.  Will completely overwrite the Mod Order you currently have saved in your mod files, but will not touch the Mod Definitions File (mods_registry.json)
+	
+	5: These buttons Activate and De-Activate mods.  YaACT means Activate.  DeACT means De-Activate.  Select means the mod you currently are selecting in the Right List.  YaACT Select will take the selection from the All Mods List.  DeACT Select works whether you are selecting a mod in the All Mods List or the Active Mods List.  YaACT All and DeACT ALL Activate and De-Activate All Mods.
+	
+	6: These buttons Re-Order your Mod List.  They currently Only Work when selecting something in the All Mods List.  Move to Top, Up 1, Down 1, and Down Bottom are self explanatory.  Up #, Down #, and Move To # will prompt you to input a number.  Up # and Down # will move the Mod up or down the number specified, Move To # will move the mod to that Index, displacing the current mod at that index down and re-flowing the Mod List Naturally.
+	
+	7: This button opens a Sub-Menu allowing you to select from one of 3 Auto-Sort Methods;
+		1 -: "Sort Alphabetical" :: Sorts your Mod Load Order Alphabetically  It my tests it seemed to correctly reproduce the Pre-2.4 Mod Load Order
+		2 -: "Rev Alphabetical" :: Sorts your Mod Load Order into a Reverse Alphabetical Order.  Because Paradox now loads mods in the opposite order, this should sort mods into the correct load order if they have their names properly defined.  I still recommend checking things over manually before actually running the game.
+		3 -: "JusFckMySHtUp" :: Sorts the mods into a randomized order.  Don't Use This.  I just wanted a third button.  You Know how it is.
+
+	8: Buttons to Import and Export your Mod Load List.
+		Import -: 
+			* Importing your Mod Load Order is handled by the button to the immediate Left of the Export Order Button.  Select the .kmodl or .kmodf file of your choice and click open.  This will sort your Mod Load Order List, and you can apply the new order by clicking "Save Mods".  Remember, Kilroy does NOTHING to your actual Mod List until you click "Save Mods" and that is true of the Import Order Function as well.
+			* If (When you import a Mod Load Order it lists mods which are not correctly defined in the Imported Mod Load Order){You may receive a popup dialogue.  This dialogue will popup listing these incorrectly defined mods.  It will list the full Mod Definition, which May, emphasis on May, give you enough information to figure out what the mod is supposed to be defined as, and potentially download it and properly placed it manually.  I make no promises, as this dialogue is mainly here just to prevent the Import Function from crashing the application when a Mod Definition does not have the expected number of values causing the program to shrink into a quivering mess when it tries to access the index 7 variable of a length 6 array.  How did it get to checking the 7th before realising the array didn't even have a sixth?  I, don't know, and I don't want to find out.}
+			* Else If (When you import a Mod Load Order it lists mods that you do Not have Downloaded and properly initialized in Stellaris){You may receive a popup dialogue.  This dialogue will list all of the mods it could not find.  In particular, this window has a convenience feature in that any Steam Mod that it cannot find, it will attempt to construct the Steam URL for.  You should be able to take the URL listed beneath the mod, plug it into a browser that you're logged into Steam On, and then subscribe to the mod from there.  It should then start downloading locally to your machine!  Then just re-Import the Mod Load Order and if there are no more missing mods, click Save and you're good to go.}
+			* Else {It just works.}
+		Export -: 
+			* When you Export your Mod List, you have two options for how to export it, determined by which file type you select.  If you select "KMOD-Lite Files (*.kmodl)" then the file generated will include ONLY Your Active Mods.  On the other hand, if you select "KMOD-Full Files (*.kmodf) then it will export your entire Mod Load Order, including De-Activated Mods.  The Lite File Format is the default as it is what I suspect most people will use, however the Full Mod List is provided as well to the creation of a Grand High Every Mod on the Workshop List if you guys are interested in doing that.
+			* I'm sure as hell not going to do that.
+
+################ KEYBOARD CONTROLS !!!1!!1!1!
+		
+	For The All Mods List (2) -:
+		Click to select an entity in the All Mods List.  From there, you can navigate Up with Up/Left and Down with Down/Right.  Press Enter to toggle the Activated status of the selected mod.  Hold Control and press Down/Up to Move the Selected Mod Down or Up.  Left and Right do NOT move Mods even when holding Control.  If you Hold Down Up/Down while holding Control it will just keep moving down or up, but only if you sing Eurotech and Drift in your chair while doing it.
+	For "Numba Numba who got da Numba" dialogue Box -:
+		Up/Left + Down/Right will increment the number in the Numeric Up/Down.  Press Enter to Confirm, or Escape to Cancel.
+	
+################ MODIFICATIOn
+		
+Full Source Code is included.  It was primarily written in Visual Studio 2010 but I fixed some stuff up in Xamarin Studio.  It should still be fine in either.  Feel free to make any modifications you want, just try to keep my COMPLETELY PROFESSIONAL AND STRAIGHTFORWARD NAMING SCHEME THAT I DIDN'T ABANDON AT THE END ANYWAYS SHUT UP.
+
+I'mmn Gud Progrmmer.
+
+It's Over!!

@@ -1,0 +1,15 @@
+﻿<Properties StartupConfiguration="{226A3FF8-AC3F-458E-A621-AD92FC37FFE3}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|x86" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.ItemProperties.Kilroy PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Kilroy\Form1.cs">
+    <Files>
+      <File FileName="Kilroy\Form1.cs" Line="678" Column="54" />
+      <File FileName="Kilroy\Form1.Designer.cs" Line="248" Column="28" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MultiItemStartupConfigurations />
+</Properties>
