@@ -71,10 +71,9 @@ namespace Kilroy
 	        while (!exit)
 	        {
 	            indexStart = body.IndexOf(start);
-	
 	            if (indexStart != -1)
 	            {
-	                indexEnd = indexStart + body.Substring(indexStart).IndexOf(end);	
+	                indexEnd = indexStart + body.Substring(indexStart + start.Length).IndexOf(end) + start.Length;	
 	                matched.Add(body.Substring(indexStart + start.Length, indexEnd - indexStart - start.Length));
 	                body = body.Substring(indexEnd + end.Length);
 	            }
@@ -176,15 +175,24 @@ namespace Kilroy
             //mods_registry.json
             if (System.IO.File.Exists(appPath + modFile))
             {
+				string modsAllForOne = "";
                 List<string> modsALL = new List<string>();
                 using (StreamReader sr = new StreamReader(appPath + modFile))
                 {
                     string line;
                     while ((line = sr.ReadLine()) != null)
                     {
-                        modsALL.AddRange(ExtractFromBody(line.Replace(@"}}", @"},}"), @":{", @"},"));
+                        modsAllForOne+=line;
                     }
                 }
+					//Clean up extra spaces and other formatting quirks
+				modsAllForOne = modsAllForOne.Replace(@"}}", @"},}");
+				while(modsAllForOne.Contains(": ")) { modsAllForOne = modsAllForOne.Replace(@": ", @":"); }
+				while(modsAllForOne.Contains("/ ")) { modsAllForOne = modsAllForOne.Replace(@"/ ", @"/"); }
+				while(modsAllForOne.Contains(", ")) { modsAllForOne = modsAllForOne.Replace(@", ", @","); }
+				//while(modsAllForOne.Contains("/ ")) { modsAllForOne = modsAllForOne.Replace("\" ", "\""); }
+				//while(modsAllForOne.Contains("/ ")) { modsAllForOne = modsAllForOne.Replace(" \"", "\""); }
+				modsALL.AddRange(ExtractFromBody(modsAllForOne, @":{", @"},"));
                 foreach (string s in modsALL)
                 {
                     WithPartsMadeInJapan KROY = MachineOrMannequin(s);
@@ -269,9 +277,11 @@ namespace Kilroy
             string nam = "";
             string ver = "";
 
+					//MessageBox.Show(inf);
             string[] sSPL = inf.Split(',');
             foreach (string s in sSPL)
             {
+					//MessageBox.Show(s);
                 if (s.Contains("steamId")) { typ = "S"; sid = s.Replace("\"steamId\":", "").Replace("\"", ""); } //If a SteamID is present, set type to Steam
                 if (s.Contains("\"id\":")) { uid = s.Replace("\"id\":", "").Replace("\"", ""); }
                 if (s.Contains("\"gameRegistryId\":")) { mid = s.Replace("\"gameRegistryId\":", "").Replace(@"mod/", "").Replace("\"", ""); }
@@ -281,9 +291,10 @@ namespace Kilroy
 
             //uid = ExtractFromBody(inf, "\"id\":\"", "\"},")[0];
             //mid = ExtractFromBody(inf, "\"gameRegistryId\":\"", "\",")[0];
-            nam = ExtractFromBody(inf, "\"displayName\":\"", "\",")[0];
+            nam = ExtractFromBody(inf, "\"displayName\":\"", "\"")[0];
             //ver = ExtractFromBody(inf, "\"requiredVersion\":\"", "\",")[0];
             
+			//MessageBox.Show(typ + "," + uid + "," + mid + "," + sid + "," + nam + "," + ver);
             WithPartsMadeInJapan o = new WithPartsMadeInJapan(typ, uid, mid, sid, nam, ver);
             return o;
         }

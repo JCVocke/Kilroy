@@ -27,7 +27,6 @@ J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\bin\Debug\normnfc.nlp
 J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\bin\Debug\normnfd.nlp
 J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\bin\Debug\normnfkc.nlp
 J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\bin\Debug\normnfkd.nlp
-J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\obj\x86\Debug\Kilroy.csprojResolveAssemblyReference.cache
 J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\obj\x86\Debug\Kilroy.Form1.resources
 J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\obj\x86\Debug\Kilroy.Form2.resources
 J:\_TRANSITUS\_DB\Dropbox\____DEBGU\__PROJ\Kilroy\Kilroy\obj\x86\Debug\Kilroy.Form3.resources
